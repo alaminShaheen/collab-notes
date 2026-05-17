@@ -5,7 +5,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    database_url: str = Field(...)
+    postgresql_database_url: str = Field(...)
+    mongodb_database_url: str = Field(...)
 
     secret_key: str = Field(...)
     algorithm: str = "HS256"

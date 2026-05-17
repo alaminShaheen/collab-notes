@@ -13,7 +13,7 @@ from app import models  # noqa: F401 - registers tables on SQLModel.metadata
 # access to the values within the .ini file in use.
 config = context.config
 
-config.set_main_option("sqlalchemy.url", get_settings().database_url)
+config.set_main_option("sqlalchemy.url", get_settings().postgresql_database_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
