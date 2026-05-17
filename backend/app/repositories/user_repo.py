@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Depends
 from sqlmodel import Session, select
 
@@ -25,5 +27,8 @@ class UserRepository:
         return user
 
 
-def get_user_repository(session: Session = Depends(get_session)) -> UserRepository:
+SessionDep = Annotated[Session, Depends(get_session)]
+
+
+def get_user_repository(session: SessionDep) -> UserRepository:
     return UserRepository(session)

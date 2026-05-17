@@ -16,17 +16,22 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-
-#  mongo:
-#    image: mongo:7
-#    container_name: collab-notes-mongo
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: root
-#    ports:
-#      - "27017:27017"
-#    volumes:
-#      - mongo_data:/data/db
+  mongo:
+    image: mongo:7
+    container_name: collab-notes-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "-u", "root", "-p", "root", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 volumes:
   pg_data:

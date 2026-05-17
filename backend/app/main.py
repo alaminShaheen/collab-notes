@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import auth, users
+from app.routers import auth_router, users_router
 
 app = FastAPI(title="collab-notes")
 

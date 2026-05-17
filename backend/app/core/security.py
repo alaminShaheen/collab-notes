@@ -1,19 +1,20 @@
 from datetime import datetime, timedelta, timezone
 
-from jose import JWTError, jwt
-from passlib.context import CryptContext
+import jwt
+from jwt.exceptions import PyJWTError as JWTError
+from pwdlib import PasswordHash
 
 from app.config import get_settings
 
-_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+_password_hash = PasswordHash.recommended()
 
 
 def hash_password(plain: str) -> str:
-    return _pwd_context.hash(plain)
+    return _password_hash.hash(plain)
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return _pwd_context.verify(plain, hashed)
+    return _password_hash.verify(plain, hashed)
 
 
 def create_access_token(subject: str | int, expires_delta: timedelta | None = None) -> str:

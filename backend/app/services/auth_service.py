@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Depends, HTTPException, status
 
 from app.core.security import create_access_token, hash_password, verify_password
@@ -38,7 +40,8 @@ class AuthService:
         return Token(access_token=token)
 
 
-def get_auth_service(
-    user_repo: UserRepository = Depends(get_user_repository),
-) -> AuthService:
+UserRepoDep = Annotated[UserRepository, Depends(get_user_repository)]
+
+
+def get_auth_service(user_repo: UserRepoDep) -> AuthService:
     return AuthService(user_repo)
