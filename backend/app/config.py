@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     postgresql_database_url: str = Field(...)
     mongodb_database_url: str = Field(...)
 
+    elasticsearch_url: str = Field(...)
+    elasticsearch_index: str = Field(...)
+
     secret_key: str = Field(...)
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30

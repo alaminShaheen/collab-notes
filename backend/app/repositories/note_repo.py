@@ -33,6 +33,7 @@ class NoteRepository:
             "owner_id": owner_id,
             "title": payload.title,
             "content": payload.content,
+            "tags": payload.tags,
             "created_at": now,
             "updated_at": now,
         }
@@ -64,6 +65,7 @@ class NoteRepository:
                 "$set": {
                     "title": payload.title,
                     "content": payload.content,
+                    "tags": payload.tags,
                     "updated_at": datetime.now(timezone.utc),
                 }
             },
