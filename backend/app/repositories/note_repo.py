@@ -71,12 +71,12 @@ class NoteRepository:
         )
         return self._serialize(doc) if doc else None
 
-    async def delete_for_owner(self, note_id: str, owner_id: int) -> bool:
+    async def delete_for_owner(self, note_id: str, owner_id: int) -> dict | None:
         oid = self._to_object_id(note_id)
         if oid is None:
-            return False
-        result = await self.collection.delete_one({"_id": oid, "owner_id": owner_id})
-        return result.deleted_count > 0
+            return None
+        doc = await self.collection.find_one_and_delete({"_id": oid, "owner_id": owner_id})
+        return self._serialize(doc) if doc else None
 
 
 DatabaseDep = Annotated[AsyncIOMotorDatabase, Depends(get_database)]

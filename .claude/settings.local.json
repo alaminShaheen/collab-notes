@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/Scripts/python.exe -c \"from app.main import app; print\\('import ok'\\)\")"
+    ]
+  }
+}

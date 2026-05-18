@@ -26,7 +26,7 @@ class AuthService:
         )
         return self.user_repo.create(user)
 
-    def login(self, email_or_username: str, password: str) -> Token:
+    def login(self, email_or_username: str, password: str) -> tuple[User, Token]:
         user = (
             self.user_repo.get_by_email(email_or_username)
             or self.user_repo.get_by_username(email_or_username)
@@ -37,7 +37,7 @@ class AuthService:
             raise HTTPException(status.HTTP_403_FORBIDDEN, "Account is inactive")
 
         token = create_access_token(subject=user.id)
-        return Token(access_token=token)
+        return user, Token(access_token=token)
 
 
 UserRepoDep = Annotated[UserRepository, Depends(get_user_repository)]

@@ -29,10 +29,11 @@ class NoteService:
             raise HTTPException(status.HTTP_404_NOT_FOUND, "Note not found")
         return note
 
-    async def delete(self, user: User, note_id: str) -> None:
+    async def delete(self, user: User, note_id: str) -> dict:
         deleted = await self.note_repo.delete_for_owner(note_id, user.id)
-        if not deleted:
+        if deleted is None:
             raise HTTPException(status.HTTP_404_NOT_FOUND, "Note not found")
+        return deleted
 
 
 NoteRepoDep = Annotated[NoteRepository, Depends(get_note_repository)]
